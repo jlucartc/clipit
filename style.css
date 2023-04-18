@@ -1,3 +1,8 @@
+html{
+    background-color: #333333;
+    color: #ffffff;
+}
+
 .clip-settings{
     display: flex;
     flex-direction: column;
@@ -16,6 +21,7 @@
 }
 
 .clip-range-group__input{
+    padding: 10px 20px 10px 20px;
     border-radius: 5px;
     box-shadow: 2px 2px 0px 0px rgba(0,0,0,0.25);
 }
@@ -31,6 +37,7 @@
 }
 
 .clip-format-group__select{
+    padding: 10px 20px 10px 20px;
     border-radius: 5px;
     box-shadow: 2px 2px 0px 0px rgba(0,0,0,0.25);
 }
@@ -38,13 +45,14 @@
 .clips{
     display: flex;
     flex-direction: column;
-    padding: 40px;
+    padding: 0px 40px 40px 40px;
     font-family: helvetica;
 }
 
 .clips__header{
     font-size: 1.5rem;
     margin: 0px 0px 20px 0px;
+    text-align: center;
 }
 
 .clips__list{
@@ -54,10 +62,14 @@
 }
 
 .clips-list__item{
+    color: #333333;
+    background-color: #f0f0f0;
     display: flex;
     flex-direction: column;
     align-items: start;
-    gap: 10px;
+    gap: 20px;
+    box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.25);
+    padding: 40px;
 }
 
 .clips-list-item__name{
@@ -91,8 +103,11 @@
     width: 100%;
     border: none;
     border-radius: 5px;
-    padding: 5px 20px 5px 20px;
+    padding: 10px 20px 10px 20px;
     box-sizing: border-box;
+    background-color: #bd2626;
+    font-size: 1rem;
+    color: #ffffff;
     box-shadow: 2px 2px 0px 0px rgba(0,0,0,0.25);
 }
 
@@ -102,7 +117,7 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    margin: 20px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
     box-sizing: border-box;
 }
 
@@ -128,7 +143,7 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    margin: 20px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
     box-sizing: border-box;
 }
 
@@ -142,6 +157,32 @@
     font-size: 1.25rem;
     padding: 10px 20px 10px 20px;
     background-color: #0055ff;
+    box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.25);
+    box-sizing: border-box;
+    cursor: pointer;
+    color: #ffffff
+}
+
+.clips__clear-list{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 0px 0px 0px 0px;
+    box-sizing: border-box;
+}
+
+.clips-clear-list__button{
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    font-size: 1.25rem;
+    padding: 10px 20px 10px 20px;
+    background-color: #e73030;
     box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.25);
     box-sizing: border-box;
     cursor: pointer;

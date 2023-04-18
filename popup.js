@@ -111,7 +111,14 @@ function remove_item(){
 }
 
 function decrease_badge(){
-    connection.postMessage({msg: 'decrease_badge'})
+    chrome.action.getBadgeText({})
+    .then(text => {
+        chrome.action.setBadgeText({text: (parseInt(text) - 1).toString()})
+    })
+}
+
+function clear_badge(){
+    chrome.action.setBadgeText({text: '0'})
 }
 
 function generate_clips_list(clips){
@@ -121,7 +128,7 @@ function generate_clips_list(clips){
         clips_list.removeChild(child)
     })
 
-    clips.map((clip) => {
+    clips.reverse().map((clip) => {
         let clips_list_item = document.createElement('div')
         let clips_list_item_name = document.createElement('div')
         let clips_list_item_url = document.createElement('a')
@@ -199,6 +206,13 @@ function update_clip_range_value(e){
     }
 }
 
+function clear_list(){
+    chrome.storage.local.clear()
+    .then(() => {
+        clear_badge()
+    })
+}
+
 chrome.storage.onChanged.addListener((changes,area_name) => {
     if(changes.hasOwnProperty('clips')){
         generate_clips_list(changes['clips'].newValue)
@@ -210,10 +224,12 @@ let clip_range_input = document.querySelector('.clip-range-group__input')
 let clip_format_select = document.querySelector('.clip-format-group__select')
 let copy_data_button = document.querySelector('.clips-copy-data__button')
 let download_data_button = document.querySelector('.clips-download-data__button')
+let clear_list_button = document.querySelector('.clips-clear-list__button')
 clip_range_input.addEventListener('keyup',update_clip_range_value)
 clip_format_select.addEventListener('change',update_format_type)
 copy_data_button.addEventListener('click',copy_data_to_clipboard)
 download_data_button.addEventListener('click',download_data)
+clear_list_button.addEventListener('click',clear_list)
 
 chrome.storage.local.get(['clip_range','clips','format_type'],(data) => {
     if(data.hasOwnProperty('clip_range')){

@@ -5,6 +5,12 @@
     "background": {
         "service_worker": "background.js"
     },
+    "icons":{
+        "16":"icon.png",
+        "32":"icon.png",
+        "48":"icon.png",
+        "128":"icon.png"
+    },
     "commands": {
         "create_clip": {
             "suggested_key": "Ctrl+Period",

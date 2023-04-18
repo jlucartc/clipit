@@ -1,10 +1,13 @@
-function create_clip(){
-    chrome.tabs.query({active: true},(tabs) => {
-        chrome.tabs.sendMessage(
-            tabs[0].id,
-            {msg: 'create_clip'}
-        )
-    })
+function create_clip(tab_id){
+    chrome.tabs.sendMessage(
+        tab_id,
+        {msg: 'create_clip'}
+    )
+    // chrome.tabs.query({active: true})
+    // .then(tabs => {
+    //     console.log('Tab: ',tabs)
+
+    // })
 }
 
 function increase_badge(){
@@ -49,19 +52,20 @@ chrome.runtime.onConnect.addListener((conn) => {
 
 chrome.contextMenus.create({id: 'create_clip',title: 'Create clip'})
 chrome.contextMenus.onClicked.addListener((info,tab) => {
+    console.log('Tab: ',tab)
     switch(info.menuItemId){
         case 'create_clip':
-            create_clip()
+            create_clip(tab.id)
             break;
         default:
             break;
     }
 })
 
-chrome.commands.onCommand.addListener((command) => {
+chrome.commands.onCommand.addListener((command,tab) => {
     switch(command){
         case 'create_clip':
-            create_clip()
+            create_clip(tab.id)
             break;
         default:
             break;
