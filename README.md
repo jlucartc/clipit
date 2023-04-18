@@ -45,3 +45,7 @@
 - A badge should appear when in the browser icon.
 - When you click the browser icon, you should see the list of clips created
 - You may download or copy the clips list
+
+Brief usage video:
+
+<video src="clipit.mp4" width='500px'></video>
