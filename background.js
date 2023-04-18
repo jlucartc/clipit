@@ -3,11 +3,6 @@ function create_clip(tab_id){
         tab_id,
         {msg: 'create_clip'}
     )
-    // chrome.tabs.query({active: true})
-    // .then(tabs => {
-    //     console.log('Tab: ',tabs)
-
-    // })
 }
 
 function increase_badge(){
