@@ -1,0 +1,149 @@
+.clip-settings{
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    gap: 20px;
+}
+
+.clip-range-group{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.clip-range-group__label{
+    font-size: 1rem;
+}
+
+.clip-range-group__input{
+    border-radius: 5px;
+    box-shadow: 2px 2px 0px 0px rgba(0,0,0,0.25);
+}
+
+.clip-format-group{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.clip-format-group__label{
+    font-size: 1rem;
+}
+
+.clip-format-group__select{
+    border-radius: 5px;
+    box-shadow: 2px 2px 0px 0px rgba(0,0,0,0.25);
+}
+
+.clips{
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    font-family: helvetica;
+}
+
+.clips__header{
+    font-size: 1.5rem;
+    margin: 0px 0px 20px 0px;
+}
+
+.clips__list{
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.clips-list__item{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+}
+
+.clips-list-item__name{
+    font-size: 1.25rem;
+}
+
+.clips-list-item__url{
+    font-size: 0.875rem;
+}
+
+.clips-list-item__time{
+    display: flex;
+    flex-direction: row;
+    font-size: 0.875rem;
+}
+
+.clips-list-item-time__start{
+    margin: 0px 20px 0px 0px;
+}
+
+.clips-list-item-time__end{}
+
+.clips-list-item__controls{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+}
+
+.clips-list-item-controls__remove{
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 20px 5px 20px;
+    box-sizing: border-box;
+    box-shadow: 2px 2px 0px 0px rgba(0,0,0,0.25);
+}
+
+.clips__copy-data{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 20px 0px 0px 0px;
+    box-sizing: border-box;
+}
+
+.clips-copy-data__button{
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    font-size: 1.25rem;
+    padding: 10px 20px 10px 20px;
+    background-color: #0055ff;
+    box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.25);
+    box-sizing: border-box;
+    cursor: pointer;
+    color: #ffffff
+}
+
+.clips__download-data{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 20px 0px 0px 0px;
+    box-sizing: border-box;
+}
+
+.clips-download-data__button{
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    font-size: 1.25rem;
+    padding: 10px 20px 10px 20px;
+    background-color: #0055ff;
+    box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.25);
+    box-sizing: border-box;
+    cursor: pointer;
+    color: #ffffff
+}

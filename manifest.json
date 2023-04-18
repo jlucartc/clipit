@@ -1,0 +1,37 @@
+{
+    "name": "clipit",
+    "version": "0.0.0",
+    "manifest_version": 3,
+    "background": {
+        "service_worker": "background.js"
+    },
+    "commands": {
+        "create_clip": {
+            "suggested_key": "Ctrl+Period",
+            "description": "Create cut from video in current page"
+        }
+    },
+    "content_scripts":[
+        {
+            "matches": ["<all_urls>"],
+            "js": ["content.js"]
+        }
+    ],
+    "action": {
+        "default_title": "Clipit",
+        "default_popup": "popup.html",
+        "default_icon": "icon.png"
+    },
+    "permissions": [
+        "clipboardWrite",
+        "contextMenus",
+        "webRequest",
+        "storage",
+        "browsingData",
+        "declarativeNetRequest",
+        "webNavigation",
+        "scripting",
+        "activeTab",
+        "<all_urls>"
+    ]
+}

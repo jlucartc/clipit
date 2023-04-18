@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="clip-settings">
+            <div class="clip-range-group">
+                <label class="clip-range-group__label" for="">Clip size(in seconds)</label>
+                <input class="clip-range-group__input" type="number" min="1" step="1">
+            </div>
+            <div class="clip-format-group">
+                <label class="clip-format-group__label" for="">Data format</label>
+                <select class="clip-format-group__select" value="json">
+                    <option value="json">JSON</option>
+                    <option value="text">Text</option>
+                </select>
+            </div>
+            <div class="clips__copy-data">
+                <a class="clips-copy-data__button">Copy clips data</a>
+            </div>
+            <div class="clips__download-data">
+                <a class="clips-download-data__button">Download data</a>
+            </div>
+        </div>
+        <div class="clips">
+            <div class="clips__header">My clips</div>
+            <div class="clips__list">
+            </div>
+        </div>
+        <script src="popup.js"></script>
+    </body>
+</html>
