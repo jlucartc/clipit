@@ -29,15 +29,10 @@
         "default_icon": "icon.png"
     },
     "permissions": [
+        "tabs",
         "clipboardWrite",
         "contextMenus",
-        "webRequest",
         "storage",
-        "browsingData",
-        "declarativeNetRequest",
-        "webNavigation",
-        "scripting",
-        "activeTab",
         "<all_urls>"
     ]
 }
