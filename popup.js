@@ -1,9 +1,10 @@
 function format_clips_as_text(clips){
     clips = clips.map((clip) => {
         clip = '----------\n\n'
-                +'Start: '+format_time(clip.start)
+                +'Name: '+clip.name.toString()
+                +'\nStart: '+format_time(clip.start)
                 +'\nEnd: '+format_time(clip.end)
-                +'\nName: '+clip.name.toString()
+                +'\nTitle: '+clip.title.toString()
                 +'\nURL: '+clip.url.toString()
                 +'\n\n----------\n\n'
         return clip
@@ -110,6 +111,14 @@ function remove_item(){
     })
 }
 
+function jump_to_moment(){
+    let start = this.innerText.match(/Start:\s[0-9]{2,}:[0-9]{2,2}:[0-9]{2,2}/)
+    let link = this.querySelector('.clips-list-item__url').href
+    if(start != null){
+        connection.postMessage({msg: 'jump_to_moment', start: start[0], link: link})
+    }
+}
+
 function decrease_badge(){
     chrome.action.getBadgeText({})
     .then(text => {
@@ -122,7 +131,7 @@ function clear_badge(){
 }
 
 function generate_clips_list(clips){
-    let clips_list = document.querySelector('.clips__list')
+    let clips_list = document.querySelector('.clips')
 
     Array.from(clips_list.children).forEach((child) => {
         clips_list.removeChild(child)
@@ -130,17 +139,25 @@ function generate_clips_list(clips){
 
     clips.reverse().map((clip) => {
         let clips_list_item = document.createElement('div')
-        let clips_list_item_name = document.createElement('div')
+        let clips_list_item_video_name = document.createElement('div')
         let clips_list_item_url = document.createElement('a')
         let clips_list_item_time = document.createElement('div')
         let clips_list_item_time_start = document.createElement('div')
         let clips_list_item_time_end = document.createElement('div')
         let clips_list_item_controls = document.createElement('div')
         let clips_list_item_controls_remove = document.createElement('button')
-    
+        let clips_list_item_controls_jump = document.createElement('button')
+        let clips_list_item_name_group_clip_name_group = document.createElement('div')
+        let clips_list_item_name_group_clip_name_group_label = document.createElement('label')
+        let clips_list_item_name_group_edit_name_group = document.createElement('div')
+        let clips_list_item_name_group_edit_name_group_input = document.createElement('input')
+        let clips_list_item_name_group_clip_name_group_edit = document.createElement('button')
+        let clips_list_item_name_group_edit_name_group_save = document.createElement('button')
+        let clips_list_item_name_group_edit_name_group_cancel = document.createElement('button')
+
         clips_list_item.id = clip['id']
         clips_list_item.className = 'clips-list__item'
-        clips_list_item_name.className = 'clips-list-item__name'
+        clips_list_item_video_name.className = 'clips-list-item__video-name'
         clips_list_item_url.className = 'clips-list-item__url'
         clips_list_item_time.className = 'clips-list-item__time'
         clips_list_item_time_start.className = 'clips-list-item-time__start'
@@ -148,15 +165,38 @@ function generate_clips_list(clips){
         clips_list_item_controls.className = 'clips-list-item__controls'
         clips_list_item_controls_remove.className = 'clips-list-item-controls__remove'
         clips_list_item_controls_remove.innerHTML = 'Remove'
-    
-        clips_list_item_name.innerHTML = clip['name']
-        clips_list_item_url.innerHTML = clip['url']
-        clips_list_item_url.href = clip['url']
-        clips_list_item_time_start.innerHTML = 'Start: '+format_time(clip['start'])
-        clips_list_item_time_end.innerHTML = 'End: '+format_time(clip['end'].toString())
+        clips_list_item_controls_jump.className = 'clips-list-item-controls__jump'
+        clips_list_item_controls_jump.innerHTML = 'Go to'
+        clips_list_item_name_group_clip_name_group.className = 'clips-list-item-name-group__clip-name-group'
+        clips_list_item_name_group_clip_name_group_label.className = 'clips-list-item-name-group-clip-name-group__label'
+        clips_list_item_name_group_clip_name_group_edit.className = 'clips-list-item-name-group-clip-name-group__edit'
+        clips_list_item_name_group_edit_name_group.className = 'clips-list-item-name-group__edit-name-group'
+        clips_list_item_name_group_edit_name_group_input.className = 'clips-list-item-name-group-edit-name-group__input'
+        clips_list_item_name_group_edit_name_group_save.className = 'clips-list-item-name-group-edit-name-group__save'
+        clips_list_item_name_group_edit_name_group_cancel.className = 'clips-list-item-name-group-edit-name-group__cancel'
+        clips_list_item_name_group_clip_name_group_edit.innerHTML = 'Edit'
+        clips_list_item_name_group_edit_name_group_save.innerHTML = 'Save'
+        clips_list_item_name_group_edit_name_group_cancel.innerHTML = 'Cancel'
+        clips_list_item_name_group_clip_name_group_label.innerHTML = clip.name
+        clips_list_item_name_group_edit_name_group_input.value = clip.name
+        clips_list_item_name_group_edit_name_group.style.display = 'none'
 
+        clips_list_item_video_name.innerHTML = clip.title
+        clips_list_item_url.innerHTML = clip.url
+        clips_list_item_url.href = clip.url
+        clips_list_item_time_start.innerHTML = 'Start: '+format_time(clip.start)
+        clips_list_item_time_end.innerHTML = 'End: '+format_time(clip.end)
+
+        clips_list_item_name_group_clip_name_group.append(clips_list_item_name_group_clip_name_group_label)
+        clips_list_item_name_group_clip_name_group.append(clips_list_item_name_group_clip_name_group_edit)
+        clips_list_item_name_group_edit_name_group.append(clips_list_item_name_group_edit_name_group_input)
+        clips_list_item_name_group_edit_name_group.append(clips_list_item_name_group_edit_name_group_cancel)
+        clips_list_item_name_group_edit_name_group.append(clips_list_item_name_group_edit_name_group_save)
+        clips_list_item_controls.append(clips_list_item_controls_jump)
         clips_list_item_controls.append(clips_list_item_controls_remove)
-        clips_list_item.append(clips_list_item_name)
+        clips_list_item.append(clips_list_item_name_group_clip_name_group)
+        clips_list_item.append(clips_list_item_name_group_edit_name_group)
+        clips_list_item.append(clips_list_item_video_name)
         clips_list_item.append(clips_list_item_url)
         clips_list_item_time.append(clips_list_item_time_start)
         clips_list_item_time.append(clips_list_item_time_end)
@@ -164,9 +204,50 @@ function generate_clips_list(clips){
         clips_list_item.append(clips_list_item_controls)
     
         clips_list_item_controls_remove.addEventListener('click',remove_item.bind(clips_list_item))        
+        clips_list_item_controls_jump.addEventListener('click',jump_to_moment.bind(clips_list_item))
+        clips_list_item_name_group_clip_name_group_edit.addEventListener('click',edit_clip_name.bind(clips_list_item))
+        clips_list_item_name_group_edit_name_group_save.addEventListener('click',save_clip_name.bind(clips_list_item))
+        clips_list_item_name_group_edit_name_group_cancel.addEventListener('click',cancel_clip_name_edit.bind(clips_list_item))
 
         clips_list.append(clips_list_item)
     })
+}
+
+function edit_clip_name(){
+    let edit_clip_group = this.querySelector('.clips-list-item-name-group__edit-name-group')
+    let clip_name_group = this.querySelector('.clips-list-item-name-group__clip-name-group')
+    edit_clip_group.style.display = 'flex'
+    clip_name_group.style.display = 'none'
+}
+
+
+function save_clip_name(){
+    let edit_name_input = this.querySelector('.clips-list-item-name-group-edit-name-group__input')
+    let edit_clip_group = this.querySelector('.clips-list-item-name-group__edit-name-group')
+    let clip_name_group = this.querySelector('.clips-list-item-name-group__clip-name-group')
+    chrome.storage.local.get('clips')
+    .then(data => {
+        if(data.hasOwnProperty('clips')){
+            data.clips[this.id].name = edit_name_input.value
+            chrome.storage.local.set({clips: data.clips})
+            .then(() => {
+                edit_clip_group.style.display = 'none'
+                clip_name_group.style.display = 'flex'
+            })
+        }
+    })
+}
+
+function cancel_clip_name_edit(){
+    let name_label = this.querySelector('.clips-list-item-name-group-clip-name-group__label')
+    let edit_name_input = this.querySelector('.clips-list-item-name-group-edit-name-group__input')
+    let edit_clip_group = this.querySelector('.clips-list-item-name-group__edit-name-group')
+    let clip_name_group = this.querySelector('.clips-list-item-name-group__clip-name-group')
+
+    edit_name_input.value = name_label.innerText
+
+    edit_clip_group.style.display = 'none'
+    clip_name_group.style.display = 'flex'
 }
 
 function create_list_item(name,url,start,end){
@@ -213,6 +294,23 @@ function clear_list(){
     })
 }
 
+function filter_clips(e){
+    let words = e.target.value.split(/\s/)
+    let clips = Array.from(document.querySelector('.clips').children)
+
+    console.log('words: ',words)
+
+    clips.forEach(clip => {
+        let match_any = false
+        words.forEach(word => {
+            if(clip.innerText.toLowerCase().match(word.toLowerCase()) != null){
+                match_any = true
+            }
+        })
+        clip.style.display = match_any ? 'flex' : 'none'
+    })
+}
+
 chrome.storage.onChanged.addListener((changes,area_name) => {
     if(changes.hasOwnProperty('clips')){
         generate_clips_list(changes['clips'].newValue)
@@ -225,11 +323,13 @@ let clip_format_select = document.querySelector('.clip-format-group__select')
 let copy_data_button = document.querySelector('.clips-copy-data__button')
 let download_data_button = document.querySelector('.clips-download-data__button')
 let clear_list_button = document.querySelector('.clips-clear-list__button')
+let search_input = document.querySelector('.clip-search__input')
 clip_range_input.addEventListener('keyup',update_clip_range_value)
 clip_format_select.addEventListener('change',update_format_type)
 copy_data_button.addEventListener('click',copy_data_to_clipboard)
 download_data_button.addEventListener('click',download_data)
 clear_list_button.addEventListener('click',clear_list)
+search_input.addEventListener('keyup',filter_clips)
 
 chrome.storage.local.get(['clip_range','clips','format_type'],(data) => {
     if(data.hasOwnProperty('clip_range')){

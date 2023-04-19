@@ -5,6 +5,18 @@ function create_clip(tab_id){
     )
 }
 
+function jump_to_moment(start,link){
+    chrome.tabs.query({url: link})
+    .then(tabs => {
+        tabs.forEach(tab => {
+            chrome.tabs.sendMessage(
+                tab.id,
+                {msg: 'jump_to_moment', start: start}
+            )
+        })
+    })
+}
+
 function increase_badge(){
     chrome.action.getBadgeText({},(text) => {
         let new_text = '1'
@@ -30,7 +42,7 @@ function decrease_badge(){
 }
 
 chrome.runtime.onConnect.addListener((conn) => {
-    conn.onMessage.addListener((msg) => {
+    conn.onMessage.addListener((msg,port) => {
         let content = msg.msg
         switch(content){
             case 'increase_badge':
@@ -38,6 +50,9 @@ chrome.runtime.onConnect.addListener((conn) => {
                 break;
             case 'decrease_badge':
                 decrease_badge()
+                break;
+            case 'jump_to_moment':
+                jump_to_moment(msg.start,msg.link)
                 break;
             default:
                 break;
