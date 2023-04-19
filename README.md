@@ -1,30 +1,10 @@
 <html>
-    <style>
-        #red{
-            width: 100px;
-            height: 100px;
-            background-color: #ff0000;
-        }
-        .content{
-            display: flex;
-            flex-direction: column;
-            align-items: start;
-        }
-        .icon{
-            height: 200px;
-        }
-        .document-header{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-    </style>
     <body>
         <div class="content">
             <div class="document-header">
                 <h1>Clipit</h1>
                 <h3>Create a list with clipped moments of your favorite videos</h3>
-                <img class="icon" src="./icon.png" alt="Clipit - Create livestream clips for later use"></img>
+                <img class="icon" src="./icon.png" alt="Clipit - Create livestream clips for later use" width='200px'></img>
             </div>
         </div>
     </body>
@@ -38,7 +18,7 @@
 - You can also adjust the clip length by clicking in the browser icon and changing the amount of seconds (60 by default).
 
 ## How to use
-- Install the exension in your browser throght [Chrome Web Store](https://chrome.google.com/webstore/category/extensions)
+- Install the exension in your browser through [Chrome Web Store](https://chrome.google.com/webstore/category/extensions)
 - Close and reopen your browser, or refresh your tabs
 - Visit some video/stream (on youtube, dailymotion, twitch, etc.)
 - Press `Ctrl+.`(Ctrl+dot)
@@ -48,4 +28,5 @@
 
 Brief usage video:
 
-<video src="clipit.mp4" width='500px'></video>
+https://user-images.githubusercontent.com/18648391/233145985-27cb6a60-3ce9-486f-9c64-983c0c61beb6.mp4
+
